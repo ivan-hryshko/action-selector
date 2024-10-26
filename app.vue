@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 const selectedListIndex = ref(null)
 const isSelectActivityMode = ref(false)
@@ -121,6 +121,25 @@ function nextIteration() {
   selectedActions.value = selectedActionsNext.value
   selectedActionsNext.value = []
 }
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    // Generate a random index within the remaining items
+    const j = Math.floor(Math.random() * (i + 1));
+    // Swap elements at index i and j
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function initialization() {
+  for (const index in actionsList.value) {
+    actionsList.value[index].actions = shuffleArray(actionsList.value[index].actions)
+  }
+}
+
+onMounted(() => {
+  initialization()
+})
 </script>
 
 <style lang="scss">
