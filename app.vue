@@ -1,26 +1,38 @@
 <template>
   <div class="main">
-    <div
-      class="actions-list"
-    >
+    <div class="container">
       <div
-        v-for="action in actionsList"
-        :key="action"
-        class="action"
+        class="actions-list"
       >
-        {{ action }}
+        <div
+          v-for="action in actionsList"
+          :key="action"
+          class="action"
+        >
+          {{ action }}
+        </div>
       </div>
-
+      <div class="footer">
+        <div
+          class="action"
+        >
+          Обрати активність
+        </div>
+      </div>
     </div>
-    <!-- <NuxtRouteAnnouncer />
-    <NuxtWelcome /> -->
-  </div>
+    </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-const actionsList = ['Вязати', 'Гратись з кішкою']
+const actionsList = [
+  'Вязати',
+  'Гратись з кішкою',
+  'Гратись з кішкою',
+  'Вязати',
+  'Гратись з кішкою',
+  ]
 </script>
 
 <style lang="scss">
@@ -29,6 +41,14 @@ const actionsList = ['Вязати', 'Гратись з кішкою']
   justify-content: center;
   background-color: #eafaff;
   height: 100vh;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    padding: 16px;
+  }
 }
 
 .actions-list {
@@ -37,13 +57,13 @@ const actionsList = ['Вязати', 'Гратись з кішкою']
   grid-auto-rows: min-content;
   gap: 8px;
   padding: 8px;
-
-  .action {
-    padding: 8px;
-    border: 1px solid rgb(180, 178, 178);
-    border-radius: 4px;
-    background-color: white;
-  }
+  overflow-y: auto;
+}
+.action {
+  padding: 8px;
+  border: 1px solid rgb(180, 178, 178);
+  border-radius: 4px;
+  background-color: white;
 }
 
 /* assets/css/reset.css */
