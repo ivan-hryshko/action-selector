@@ -2,13 +2,29 @@
   <div class="main">
     <div class="container">
       <div
-        v-if="isListSelected"
+        v-if="isListSelected && isSelectActivityMode"
+        class="actions-list"
+      >
+        <div
+          v-for="action in selectedActions"
+          :key="action"
+          class="action"
+          :class="actionClassOptions(action)"
+          @click="selectActivity(action)"
+        >
+          {{ action }}
+        </div>
+      </div>
+      <div
+        v-else-if="isListSelected"
         class="actions-list"
       >
         <div
           v-for="action in actionsList[selectedListIndex].actions"
           :key="action"
           class="action"
+          :class="actionClassOptions(action)"
+          @click="selectActivity(action)"
         >
           {{ action}}
         </div>
@@ -29,10 +45,18 @@
 
       <div class="footer">
         <div
-          v-if="isListSelected"
+          v-if="isListSelected && !isSelectActivityMode"
           class="action"
+          @click="startSelectActivity"
         >
           Обрати активність
+        </div>
+        <div
+          v-if="isListSelected && isSelectActivityMode"
+          class="action"
+          @click="nextIteration"
+        >
+          Далі
         </div>
       </div>
     </div>
@@ -43,6 +67,10 @@
 import { ref, computed } from 'vue';
 
 const selectedListIndex = ref(null)
+const isSelectActivityMode = ref(false)
+const selectedActions = ref([])
+const selectedActionsNext = ref([])
+
 const actionsList = ref([
   {
     name: 'today',
@@ -63,6 +91,27 @@ const isListSelected = computed(() => {
 function selectList(index) {
   console.log('index :>> ', index);
   selectedListIndex.value = index
+}
+
+function startSelectActivity() {
+  isSelectActivityMode.value = true
+  selectedActions.value = actionsList.value[selectedListIndex.value].actions
+}
+
+function selectActivity(action) {
+  if (!isSelectActivityMode.value) return
+  selectedActionsNext.value.push(action)
+}
+
+function actionClassOptions(action) {
+  return {
+    'action--selected': selectedActionsNext.value.includes(action)
+  }
+}
+
+function nextIteration() {
+  selectedActions.value = selectedActionsNext.value
+  selectedActionsNext.value = []
 }
 </script>
 
@@ -102,6 +151,10 @@ function selectList(index) {
   border: 1px solid rgb(180, 178, 178);
   border-radius: 4px;
   background-color: white;
+
+  &.action--selected {
+    background-color: aquamarine;
+  }
 }
 
 .footer {
