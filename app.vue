@@ -153,7 +153,7 @@ function nextIteration() {
   background-color: white;
 
   &.action--selected {
-    background-color: aquamarine;
+    background-color: rgb(153, 243, 252);
   }
 }
 
