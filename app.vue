@@ -26,13 +26,13 @@
 <script setup>
 import { ref } from 'vue';
 
-const actionsList = [
+const actionsList = ref([
   'Вязати',
   'Гратись з кішкою',
   'Гратись з кішкою',
   'Вязати',
   'Гратись з кішкою',
-  ]
+])
 </script>
 
 <style lang="scss">
@@ -64,6 +64,18 @@ const actionsList = [
   border: 1px solid rgb(180, 178, 178);
   border-radius: 4px;
   background-color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    .container {
+      width: 100%;
+    }
+  }
+
+  .actions-list {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* assets/css/reset.css */
