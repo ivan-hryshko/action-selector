@@ -143,11 +143,15 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+
+#__nuxt {
+  height: 100%;
+}
 .main {
   display: flex;
   justify-content: center;
   background-color: #eafaff;
-  height: 100vh;
+  height: 100%;
 
   .container {
     display: flex;
@@ -165,14 +169,7 @@ onMounted(() => {
   padding: 8px;
   overflow-y: auto;
 }
-// .actions-list {
-//   display: grid;
-//   grid-template-columns: auto auto;
-//   grid-auto-rows: min-content;
-//   gap: 8px;
-//   padding: 8px;
-//   overflow-y: auto;
-// }
+
 .action {
   padding: 8px;
   border: 1px solid rgb(180, 178, 178);
@@ -187,6 +184,7 @@ onMounted(() => {
 .footer {
   display: flex;
   gap: 8px;
+  padding: 8px;
 }
 
 @media screen and (max-width: 768px) {
